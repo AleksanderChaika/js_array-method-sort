@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-extend-native */
 
 /**
  * Implement method Sort
@@ -6,7 +7,7 @@
 function applyCustomSort() {
   [].__proto__.sort2 = function (compareFunction) {
     for (let i = 0; i < this.length; i++) {
-      for (let j = 0; j < this.length - 1; j++) {
+      for (let j = 0; j < this.length - i - 1; j++) {
         const a = this[j];
         const b = this[j + 1];
 
@@ -33,6 +34,13 @@ function applyCustomSort() {
 
     return this;
   };
+
+  Object.defineProperty(Array.prototype, 'sort', {
+    value: [].__proto__.sort2,
+    writable: true,
+    configurable: true,
+    enumerable: false,
+  });
 }
 
 module.exports = applyCustomSort;
