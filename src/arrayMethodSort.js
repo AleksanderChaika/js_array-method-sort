@@ -12,10 +12,13 @@ function applyCustomSort() {
 
         let compareResult;
 
-        if (compareFunction) {
-          compareResult = compareFunction(a, b);
+        if (typeof compareFunction === 'function') {
+          compareResult = Number(compareFunction(a, b));
         } else {
-          compareResult = String(a) > String(b) ? 1 : -1;
+          const sa = String(a);
+          const sb = String(b);
+
+          compareResult = sa > sb ? 1 : sa < sb ? -1 : 0;
         }
 
         if (compareResult > 0) {
